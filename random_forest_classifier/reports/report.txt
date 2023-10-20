@@ -1,0 +1,49 @@
+Accuracy Score : 0.6069975589910497
+Confusion Matrix : 
+[[ 21   0   0 ...   1   0   0]
+ [  0   0   1 ...   0   0   0]
+ [  0   0 606 ...   0   0   0]
+ ...
+ [  0   0   1 ...   2   0   0]
+ [  0   0   2 ...   0   0   0]
+ [  0   0   0 ...   0   0   0]]
+Classification Report : 
+                   precision    recall  f1-score   support
+
+        analytics       0.17      0.14      0.15       154
+          backend       0.00      0.00      0.00         1
+            cloud       0.80      1.00      0.89       607
+    collaboration       0.00      0.00      0.00         4
+customer_relation       0.00      0.00      0.00         1
+  developer_tools       0.65      0.22      0.33        50
+        ecommerce       0.67      0.07      0.13        27
+        education       0.00      0.00      0.00         1
+            email       0.67      0.40      0.50         5
+       enterprise       0.00      0.00      0.00         3
+    entertainment       0.44      0.67      0.53        21
+        financial       1.00      0.12      0.22        16
+            forms       0.00      0.00      0.00         1
+          hosting       1.00      0.14      0.25         7
+                i       0.00      0.00      0.00         0
+              iot       0.00      0.00      0.00         6
+         location       0.00      0.00      0.00        14
+ machine_learning       0.50      0.33      0.40         3
+        marketing       0.00      0.00      0.00         3
+            media       0.19      0.21      0.20       155
+        messaging       0.00      0.00      0.00        14
+       monitoring       0.00      0.00      0.00         1
+        open_data       0.56      0.27      0.37        51
+          payment       1.00      0.96      0.98        27
+           search       0.00      0.00      0.00         2
+         security       1.00      0.11      0.20         9
+           social       0.00      0.00      0.00         4
+          telecom       0.15      0.12      0.14        16
+             text       0.53      0.44      0.48        18
+            tools       0.25      0.67      0.36         3
+        transport       0.00      0.00      0.00         4
+                u       0.00      0.00      0.00         1
+
+         accuracy                           0.61      1229
+        macro avg       0.30      0.18      0.19      1229
+     weighted avg       0.57      0.61      0.56      1229
+
