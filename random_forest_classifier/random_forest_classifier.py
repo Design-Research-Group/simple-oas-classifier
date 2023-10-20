@@ -66,6 +66,7 @@ rfc = RandomForestClassifier(n_estimators=grid_search.best_params_['n_estimators
                              min_samples_leaf=grid_search.best_params_['min_samples_leaf'])
 rfc.fit(X_train_cv, y_train)
 
+
 import pickle
 pickle.dump(rfc, open('random_forest_classifier.pkl', 'wb'))
 pickle.dump(cv, open('count_vectorizer.pkl', 'wb'))
