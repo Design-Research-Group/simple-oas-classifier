@@ -46,7 +46,7 @@ param_grid = {
 from sklearn.ensemble import RandomForestClassifier
 
 rfc = RandomForestClassifier()
-grid_search = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=15, n_jobs=-1, verbose=2)
+grid_search = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=7, n_jobs=-1, verbose=2)
 grid_search.fit(X_train_cv, y_train)
 print('Best Parameters : ', grid_search.best_params_)
 print('Best Score : ', grid_search.best_score_)
@@ -88,53 +88,28 @@ sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', cmap='Blues')
 plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.show()
+plt.savefig('reports/confusion_matrix.png')
 
 # plot classification report
 plt.figure(figsize=(10, 10))
 sns.heatmap(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)).iloc[:-1, :].T, annot=True,
             cmap='Blues')
 plt.show()
+plt.savefig('reports/classification_report.png')
 
 # plot accuracy score
 plt.figure(figsize=(10, 10))
 sns.barplot(x=['Accuracy Score'], y=[accuracy_score(y_test, y_pred)], palette='Blues')
 plt.show()
+plt.savefig('reports/accuracy_score.png')
 
-# plot feature importance
-plt.figure(figsize=(10, 10))
-sns.barplot(x=rfc.feature_importances_, y=cv.get_feature_names(), palette='Blues')
-plt.show()
 
-# plot roc curve
-from sklearn.metrics import roc_curve, roc_auc_score
 
-y_pred_proba = rfc.predict_proba(cv.transform(X_test.values.astype('U')))
-fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba[:, 1], pos_label='news')
-plt.plot(fpr, tpr, color='blue', label='ROC')
-plt.plot([0, 1], [0, 1], color='red', linestyle='--',
-         label='ROC Curve (area = %0.3f)' % roc_auc_score(y_test, y_pred_proba[:, 1]))
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC) Curve')
-plt.legend()
-plt.show()
-plt.savefig('reports/roc_curve.png')
-
-# plot precision recall curve
-from sklearn.metrics import precision_recall_curve
-
-precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba[:, 1], pos_label='news')
-plt.plot(recall, precision, color='blue', label='PRC')
-plt.xlabel('Recall')
-plt.ylabel('Precision')
-plt.title('Precision Recall Curve')
-plt.legend()
-plt.show()
 
 # cross validation
 from sklearn.model_selection import cross_val_score
 
-cv_scores = cross_val_score(rfc, X_train_cv, y_train, cv=5, scoring='accuracy', n_jobs=-1)
+cv_scores = cross_val_score(rfc, X_train_cv, y_train, cv=7, scoring='accuracy', n_jobs=-1)
 print('Cross Validation Scores : ', cv_scores)
 print('Cross Validation Mean Score : ', cv_scores.mean())
 
@@ -148,8 +123,7 @@ with open('reports/cross_validation_report.txt', 'w') as f:
 
 # plot learning curve
 from sklearn.model_selection import learning_curve
-
-train_sizes, train_scores, test_scores = learning_curve(rfc, X_train_cv, y_train, cv=5, scoring='accuracy', n_jobs=-1,
+train_sizes, train_scores, test_scores = learning_curve(rfc, X_train_cv, y_train, cv=7, scoring='accuracy', n_jobs=-1,
                                                         train_sizes=np.linspace(0.01, 1.0, 50))
 train_mean = np.mean(train_scores, axis=1)
 train_std = np.std(train_scores, axis=1)
@@ -164,7 +138,7 @@ plt.xlabel('Training Size')
 plt.ylabel('Accuracy Score')
 plt.legend()
 plt.show()
-plt.savefig('learning_curve.png')
+plt.savefig('reports/learning_curve.png',)
 
 # Load the model
 rfc_model = pickle.load(open('random_forest_classifier.pkl', 'rb'))
